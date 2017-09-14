@@ -16,6 +16,8 @@ using namespace std;
 
 const int ASIZE = 100000;
 
+#pragma region STLHJ
+
 long get_a_target_long()
 {
 	long target = 0;
@@ -526,13 +528,309 @@ void Add(int a, int b)
 
 using namespace std::placeholders;
 
+#pragma endregion
+
+#pragma region C++11/14 GB
+
+#include <thread>
+#include <future>
+
+int doAsyncWork(int x, int y)
+{
+	if (y == 0)
+	{
+		throw logic_error("error");
+	}
+
+	return x*y;
+}
+
+void fsleep()
+{
+	this_thread::sleep_for(2s);
+	cout << "fsleep" << endl;
+}
+
+void TestAsyncDefer()
+{
+	{
+		auto f = async(launch::deferred, fsleep);
+
+		if (f.wait_for(0ms) == future_status::deferred)
+		{
+			cout << "It is a defered call" << endl;
+		}
+
+		cout << "before f.get" << endl;
+		f.get();
+	}
+
+	{
+		auto f = async(launch::async, fsleep);
+		while (f.wait_for(50ms) != future_status::ready)
+		{
+			cout << "sleep sometime" << endl;
+			this_thread::sleep_for(50ms);
+		}
+		cout << "task done" << endl;
+	}
+}
+
+class ThreadRAII
+{
+public:
+	enum class DtorAction{join, detach}; // NOTE
+	
+	ThreadRAII(thread&& t, DtorAction action) : m_action(action), m_t(move(t)) // NOTE
+	{
+	}
+
+	~ThreadRAII()
+	{
+		if (m_t.joinable())
+		{
+			if (DtorAction::join == m_action)
+			{
+				cout << "join" << endl;
+				m_t.join();
+			}
+			else
+			{
+				cout << "detach" << endl;
+				m_t.detach();
+			}
+		}
+	}
+
+	thread& get()
+	{
+		return m_t;
+	}
+
+protected:
+	DtorAction m_action;
+	thread m_t;
+};
+
+void proc()
+{
+	this_thread::sleep_for(3s);
+	cout << "proc" << endl;
+}
+
+void TestJoin()
+{
+	ThreadRAII tr(thread(proc), ThreadRAII::DtorAction::join); // NOTE
+	cout << "done" << endl;
+}
+
+void TestDetach()
+{
+	ThreadRAII tr(thread(proc), ThreadRAII::DtorAction::detach); // NOTE
+	cout << "done" << endl;
+}
+
+class Item
+{
+public:
+	Item(int i = 0) : _i(i)
+	{
+		cout << "Item cotr" << endl;
+	}
+
+	Item(const Item& item) : _i(item._i)
+	{
+		cout << "Copy ctor" << endl;
+	}
+
+	~Item()
+	{
+		cout << "D cotr" << endl;		
+	}
+
+private:
+	int _i;
+};
+
+Item createItem()
+{
+	return Item();
+}
+
+Item createItem2(int i)
+{
+	Item item1 = Item(i);
+	Item item2 = Item(-i);
+
+	return i > 0 ? item1 : item2;
+
+}
+
+void TestRef(const int& i)
+{
+
+}
+
+void TestRRef(int&& i)
+{
+
+}
+
+class CopyBase
+{
+public:
+	int Id;
+
+	CopyBase(int id = 10)
+	{
+		Id = id;
+	}
+
+//private:
+	CopyBase(const CopyBase& item)
+	{
+		Id = item.Id;
+	}
+};
+
+class CopySub : public CopyBase
+{
+
+
+public:
+	int SubID;
+	CopySub(int id = 19)
+	{
+		SubID = id;
+	}
+
+//private:
+	CopySub(const CopySub& item) : CopyBase(item)
+	{
+		SubID = item.SubID;
+	}
+};
+
+using FilterContainer = vector<function<bool(int)>>;
+
+int computeDivisioer()
+{
+	return 1024;
+}
+
+FilterContainer createFilters()
+{
+	auto divisor = computeDivisioer();
+	FilterContainer filters;
+	filters.emplace_back(
+		[&](int value) 
+		{
+			cout << "divisor = " << divisor << endl;
+			return value%divisor;
+	});
+
+	// 这种情况下by value很危险，当createFilters返回后，divisor就销毁了。。所以应该by val。
+
+	return filters;
+}
+
+class LambdaItem
+{
+public:
+	LambdaItem() { cout << "ctor" << endl; }	
+	LambdaItem(const LambdaItem& item) { cout << "copy ctor" << endl; }
+	//LambdaItem(LambdaItem&& item) { cout << "move ctor" << endl; }
+	void display() const { cout << "Item" << endl; }
+	void display2()  { cout << "Item2" << endl; }
+};
+
+void TestLambda()
+{
+	FilterContainer filters = createFilters();
+	cout << filters[0](4096) << endl;
+
+	LambdaItem item;
+	auto cap_by_ref = [&]() {item.display(); };
+	auto cap_by_val = [=]() {item.display(); };
+	auto cap_by_val2 = [=]() mutable {item.display2(); };
+
+	cap_by_ref();
+	cap_by_val();
+	cap_by_val2();
+}
+
+#pragma endregion
+
 int main()
 {
-	tuple<Sub> t();
+	TestLambda();
+
+	vector<LambdaItem> vecs;
+	vecs.reserve(10);
+	cout << "=========" << endl;
+	LambdaItem iteml;
+	cout << "=========" << endl;
+	vecs.push_back(iteml);
+	cout << "=========" << endl;
+	vecs.emplace_back(iteml);
+	vecs.push_back(LambdaItem());
+	vecs.emplace_back();
+
+	TestLambda();
+
+	/*CopyBase base(29);*/
+	CopySub sub;
+	sub.Id = 199;
+	sub.SubID = 299;
+	CopySub sub2(sub);
+
+	int arrayi[10];
+	*(arrayi + 1) = 9;
+	int ri = 10;
+	TestRRef(move(ri)); // change lvalue to rvalue
+	//vector<int&> vecs; // vector 无法初始化如果元素是引用类型
+	// 存储在vector中的元素之间必须能够复制和赋值，引用类型不能相互“一般意义下的赋值”。一般意义下的赋值我觉得是说，把“=”右边该类型的值赋给左边的的变量，而引用却不行
+
+	TestRef(10);
+
+	createItem2(9);;
+	//Item item = createItem(); // 只做会调用一次ctor，至于copy的都省略掉了。。编译器做了优化
+	Item item2 = createItem2(9); // 这边不会做RVO， 因为存在分支。
+	Item item3 = item2;
+
+	//TestJoin();
+	TestDetach();
+	cout << "hi";
+
+	try
+	{
+		future<int> f = async(doAsyncWork, 100, 0);
+		cout << f.get() << endl;
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << endl;
+	}
+
+	try
+	{
+		thread t(doAsyncWork, 100, 0);
+		t.join(); // Wait t to finish
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << endl;
+	}
+
+	// NOTE: Exception in thread cannot be handled by current thread, but future can.
+
+//	tuple<Sub> t();
 
 	cout << sizeof(string) << endl;
 
 	Sub ssa{ 10 };
+
+	const Sub ssaa = ssa;
 
 	auto bindTest = bind(Add, _1, 10);
 	//bindTest(109);
