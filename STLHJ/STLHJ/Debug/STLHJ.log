@@ -1,0 +1,115 @@
+﻿  STLHJ.cpp
+d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(100): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(874): warning C4305: 'initializing': truncation from 'int' to 'char'
+d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(874): warning C4309: 'initializing': truncation of constant value
+d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(919): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(1004): warning C4101: 'aaa': unreferenced local variable
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\type_traits(1468): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(213): note: see reference to function template instantiation '_Rx std::_Invoke_ret<_Rx,_Callable&,_Ty>(std::_Forced<_Rx,false>,_Callable &,_Ty &&)' being compiled
+          with
+          [
+              _Rx=bool,
+              _Callable=_Decayed,
+              _Ty=std::ios_base::iostate
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(211): note: while compiling class template member function 'bool std::_Func_impl<_Decayed,_Alloc,_Ret,int>::_Do_call(int &&)'
+          with
+          [
+              _Alloc=std::allocator<int>,
+              _Ret=bool
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(137): note: see reference to class template instantiation 'std::_Func_impl<_Decayed,_Alloc,_Ret,int>' being compiled
+          with
+          [
+              _Alloc=std::allocator<int>,
+              _Ret=bool
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(348): note: see reference to class template instantiation 'std::_Is_large<_Myimpl>' being compiled
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(327): note: see reference to function template instantiation 'void std::_Func_class<_Ret,int>::_Reset_alloc<_Ty,std::allocator<int>>(_Fx &&,const _Alloc &)' being compiled
+          with
+          [
+              _Ret=bool,
+              _Ty=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>,
+              _Fx=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>,
+              _Alloc=std::allocator<int>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(327): note: see reference to function template instantiation 'void std::_Func_class<_Ret,int>::_Reset_alloc<_Ty,std::allocator<int>>(_Fx &&,const _Alloc &)' being compiled
+          with
+          [
+              _Ret=bool,
+              _Ty=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>,
+              _Fx=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>,
+              _Alloc=std::allocator<int>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(498): note: see reference to function template instantiation 'void std::_Func_class<_Ret,int>::_Reset<createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=bool,
+              _Fx=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(498): note: see reference to function template instantiation 'void std::_Func_class<_Ret,int>::_Reset<createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=bool,
+              _Fx=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(737): note: see reference to function template instantiation 'std::function<bool (int)>::function<_Ty,int,void>(_Fx)' being compiled
+          with
+          [
+              _Ty=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>,
+              _Fx=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(737): note: see reference to function template instantiation 'std::function<bool (int)>::function<_Ty,int,void>(_Fx)' being compiled
+          with
+          [
+              _Ty=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>,
+              _Fx=createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(857): note: see reference to function template instantiation 'void std::allocator<_Ty>::construct<_Objty,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(_Objty *,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Ty=std::function<bool (int)>,
+              _Objty=std::function<bool (int)>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(857): note: see reference to function template instantiation 'void std::allocator<_Ty>::construct<_Objty,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(_Objty *,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Ty=std::function<bool (int)>,
+              _Objty=std::function<bool (int)>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(996): note: see reference to function template instantiation 'void std::allocator_traits<_Alloc>::construct<_Ty,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(std::allocator<_Ty> &,_Objty *,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::function<bool (int)>>,
+              _Ty=std::function<bool (int)>,
+              _Objty=std::function<bool (int)>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(995): note: see reference to function template instantiation 'void std::allocator_traits<_Alloc>::construct<_Ty,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(std::allocator<_Ty> &,_Objty *,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::function<bool (int)>>,
+              _Ty=std::function<bool (int)>,
+              _Objty=std::function<bool (int)>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(930): note: see reference to function template instantiation 'void std::_Wrap_alloc<std::allocator<_Ty>>::construct<_Ty,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(_Ty *,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Ty=std::function<bool (int)>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(929): note: see reference to function template instantiation 'void std::_Wrap_alloc<std::allocator<_Ty>>::construct<_Ty,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(_Ty *,createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Ty=std::function<bool (int)>
+          ]
+  d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(730): note: see reference to function template instantiation 'void std::vector<std::function<bool (int)>,std::allocator<_Ty>>::emplace_back<createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Ty=std::function<bool (int)>
+          ]
+  d:\clearn\geekband\stlhj\stlhj\stlhj.cpp(725): note: see reference to function template instantiation 'void std::vector<std::function<bool (int)>,std::allocator<_Ty>>::emplace_back<createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2>>(createFilters::<lambda_87e0503a1a09df4e104194f8f15ebfd2> &&)' being compiled
+          with
+          [
+              _Ty=std::function<bool (int)>
+          ]
+  STLHJ.vcxproj -> D:\CLearn\GeekBand\STLHJ\Debug\STLHJ.exe
+  STLHJ.vcxproj -> D:\CLearn\GeekBand\STLHJ\Debug\STLHJ.pdb (Full PDB)

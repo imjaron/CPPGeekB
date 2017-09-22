@@ -761,8 +761,169 @@ void TestLambda()
 
 #pragma endregion
 
+#pragma region C++11 New HJ
+
+void print()
+{
+	cout << "print()" << endl;
+}
+
+template<typename T, typename... types>
+void print(const T& arg1, const types&... arg2)
+{
+	cout << arg1 << endl;
+	print(arg2...);
+}
+
+void TestVariadicTemplate()
+{
+	print(1, 2, 3, "4", 5);
+}
+
+void printt(initializer_list<int> vals)
+{
+	for (auto val : vals)
+	{
+		cout << val << "_";
+	}
+}
+
+#pragma endregion
+
+#include <complex>
+
+void TestCharP()
+{
+	//char **s = nullptr; // Will Crash
+	char **s = static_cast<char**>(malloc(sizeof(char**)));
+	*s = "helloworld"; 
+
+	printf("%s", *s);
+}
+
+typedef typename int myInt;
+typedef iterator_traits<vector<int>::iterator>::value_type myVecValueType;
+typedef typename iterator_traits<typename vector<int>::iterator>::value_type myVecValueType;
+
+template<typename T, template<typename> typename Container>
+class XCls
+{
+private:
+	Container<T> c;
+
+public:
+	XCls()
+	{
+		for (long i = 0; i < 10; ++i)
+		{
+			c.insert(c.end(), T());
+		}
+
+		Container<T> c1(c);
+		Container<T> c2(move(c));
+		c1.swap(c2);
+	}
+};
+
+template<typename T>
+using Vec = vector<T>;
+
+void TestNoExcept() //noexcept
+{
+	cout << 100;
+	throw logic_error("noexcept except");
+}
+
+using TestNoE = void(*)();
+
+class TestMove
+{
+public:
+	string Name;
+	TestMove(string name){
+		Name = name;
+		cout << "Ctor " + name << endl;
+	}
+	TestMove(const TestMove& item)
+	{
+		Name = item.Name;
+		cout << "Copy " + item.Name << endl;
+	}
+	//TestMove(const TestMove&& item) //noexcept
+	//{
+	//	Name = item.Name;
+	//	cout << "Move " + item.Name << endl;
+	//}
+};
+
+#include <functional>
+
+//template<typename T, typename X>
+//int	add(T x, X y)
+//{
+//	return 10;
+//}
+//auto add(T x, X y) //-> decltype(x + y)
+//{
+//	return 11;
+//}
+//decltype(x + y) add(T x, X y);
+
 int main()
 {
+	char ccc = 0x11F;
+	cout << ccc << endl;
+
+	string() = "hello";
+
+	cout << max({ 1, 2, 3, 2, 6, 1, 4, 5 });
+	int id = 0;
+	auto fid = [&id](int param)
+	{
+		cout << "id: " << id << " param:" << param << endl;
+		++id;
+		++param;
+	};
+
+	id = 42;
+	fid(8);
+	fid(8);
+	fid(8);
+
+	//auto ad = add<int, int>(3, 5);
+	//cout << ad << endl;
+
+	vector<TestMove> vtm;
+	cout << vtm.capacity() << endl;
+	vtm.push_back(TestMove("Item1"));
+	cout << vtm.capacity() << endl;
+	TestMove tm("Item2");
+	vtm.push_back(tm);
+	cout << vtm.capacity() << endl;
+	vtm.push_back(TestMove("Item3"));
+	cout << vtm.capacity() << endl;
+
+	decltype(vtm) vtm2;
+	vtm2 = vtm;
+
+	TestNoE tn = TestNoExcept;
+	tn();
+
+	XCls<int, Vec> cslsin;
+
+	TestCharP();
+
+	printt({ 1, 2, 3, 4, 5 });
+
+	//int ii{ 5.3 };
+	int ii = 5.3;
+	int jj{};
+
+	vector<int> vii{ 1, 2, 3 };
+	complex<int> cii{ 1,2 };
+
+	TestVariadicTemplate();
+
 	TestLambda();
 
 	vector<LambdaItem> vecs;
